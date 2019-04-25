@@ -94,6 +94,7 @@ public class CalendarPickerView extends ListView {
   private int headerTextColor;
   private boolean displayDayNamesHeaderRow;
   private boolean displayAlwaysDigitNumbers;
+  private boolean displayCapitalizeMonthHeaders;
   private Typeface titleTypeface;
   private Typeface dateTypeface;
 
@@ -143,6 +144,8 @@ public class CalendarPickerView extends ListView {
             a.getBoolean(R.styleable.CalendarPickerView_tsquare_displayDayNamesHeaderRow, true);
     displayAlwaysDigitNumbers =
             a.getBoolean(R.styleable.CalendarPickerView_tsquare_displayAlwaysDigitNumbers, false);
+    displayCapitalizeMonthHeaders =
+            a.getBoolean(R.styleable.CalendarPickerView_tsquare_displayCapitalizeMonthHeaders, false);
     a.recycle();
 
     adapter = new MonthAdapter();
@@ -671,6 +674,10 @@ public class CalendarPickerView extends ListView {
 
     // Restore default Locale to avoid generating any side effects
     Locale.setDefault(defaultLocale);
+
+    if (displayCapitalizeMonthHeaders) {
+      dateFormatted = dateFormatted.substring(0, 1).toUpperCase() + dateFormatted.substring(1);
+    }
 
     return dateFormatted;
   }
